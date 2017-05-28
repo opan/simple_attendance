@@ -5,6 +5,8 @@ gem 'hanami',       '~> 1.0'
 gem 'hanami-model', '~> 1.0'
 
 gem 'pg'
+gem 'hanami-bootstrap'
+gem 'jquery-hanami'
 
 group :development do
   # Code reloading
@@ -22,5 +24,5 @@ group :test do
 end
 
 group :production do
-  # gem 'puma'
+  gem 'puma'
 end
