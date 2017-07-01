@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'hanami/setup'
 require 'hanami/model'
-require_relative '../lib/simple_attendance_app'
+require_relative '../lib/simple_attendace'
 require_relative '../apps/web/application'
 
 Hanami.configure do
@@ -14,9 +14,9 @@ Hanami.configure do
     # Available options:
     #
     #  * SQL adapter
-    #    adapter :sql, 'sqlite://db/simple_attendance_app_development.sqlite3'
-    #    adapter :sql, 'postgresql://localhost/simple_attendance_app_development'
-    #    adapter :sql, 'mysql://localhost/simple_attendance_app_development'
+    #    adapter :sql, 'sqlite://db/simple_attendace_development.sqlite3'
+    #    adapter :sql, 'postgresql://localhost/simple_attendace_development'
+    #    adapter :sql, 'mysql://localhost/simple_attendace_development'
     #
     adapter :sql, ENV['DATABASE_URL']
 
@@ -28,7 +28,7 @@ Hanami.configure do
   end
 
   mailer do
-    root 'lib/simple_attendance_app/mailers'
+    root 'lib/simple_attendace/mailers'
 
     # See http://hanamirb.org/guides/mailers/delivery
     delivery :test
