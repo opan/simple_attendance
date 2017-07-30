@@ -4,7 +4,11 @@ gem 'rake'
 gem 'hanami',       '~> 1.0'
 gem 'hanami-model', '~> 1.0'
 
-gem 'pg'
+gem 'pg', '~> 0.20.0'
+gem 'haml'
+
+gem 'hanami-bootstrap'
+gem 'jquery-hanami'
 
 group :development do
   # Code reloading
@@ -14,11 +18,12 @@ end
 
 group :test, :development do
   gem 'dotenv', '~> 2.0'
+  gem 'byebug', platform: :mri
 end
 
 group :test do
-  gem 'minitest'
   gem 'capybara'
+  gem 'rspec'
 end
 
 group :production do

@@ -1,0 +1,2 @@
+module SimpleAttendance
+end

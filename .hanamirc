@@ -1,4 +1,4 @@
-project=simple_attendance_app
+project=simple_attendance
 architecture=container
-test=minitest
+test=rspec
 template=erb

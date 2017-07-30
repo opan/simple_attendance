@@ -1,7 +1,7 @@
 require 'bundler/setup'
 require 'hanami/setup'
 require 'hanami/model'
-require_relative '../lib/simple_attendace'
+require_relative '../lib/simple_attendance'
 require_relative '../apps/web/application'
 
 Hanami.configure do
@@ -28,7 +28,7 @@ Hanami.configure do
   end
 
   mailer do
-    root 'lib/simple_attendace/mailers'
+    root 'lib/simple_attendance/mailers'
 
     # See http://hanamirb.org/guides/mailers/delivery
     delivery :test
