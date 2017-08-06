@@ -3,9 +3,9 @@ Hanami::Model.migration do
     create_table :users do
       primary_key :id
 
-      column :username, String, null: false, unique: true
-      column :email, String, null: false
-      column :encrypted_password, String, null: false
+      column :username, String, fixed: true, null: false, index: true, unique: true
+      column :email, String, fixed: true, null: false, index: true, unique: true
+      column :encrypted_password, String, fixed: true, null: false, index: true
       column :last_signed_in, DateTime
 
       column :created_at, DateTime, null: false

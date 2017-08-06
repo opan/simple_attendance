@@ -1,5 +1,6 @@
 require 'hanami/helpers'
 require 'hanami/assets'
+require_relative '../../lib/auth'
 
 module Web
   class Application < Hanami::Application
@@ -259,8 +260,7 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/hanami-controller#Configuration
       controller.prepare do
-        # include MyAuthentication # included in all the actions
-        # before :authenticate!    # run an authentication before callback
+        include Auth
       end
 
       # Configure the code that will yield each time Web::View is included

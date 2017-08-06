@@ -6,4 +6,6 @@
 
 resources :sessions, only: [:new, :create, :destroy]
 resources :registrations, only: [:new, :create]
+get '/dashboards', to: 'dashboards#index', as: 'dashboards'
+
 root to: 'sessions#new'

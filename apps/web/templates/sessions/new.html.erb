@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-4 col-md-offset-4 col-sm-12 col-xs-12">
     <%= 
-      form_for :session, routes.sessions_path do
+      form_for :user, routes.sessions_path do
         div(class: 'form-group') do
           label :username
           text_field :username, class: 'form-control', placeholder: 'Type your username', required: true
