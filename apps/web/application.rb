@@ -82,7 +82,7 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
       #
-      # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
+      sessions :cookie, secret: '2fa45b3c3e3b05d795610805c3daffd5'
 
       # Configure Rack middleware for this application
       #

@@ -10,15 +10,19 @@ module Web::Controllers::Sessions
     end
 
     def call(params)
-      username = params.get(:session, :username)
-      password = params.get(:session, :password)
-      user = UserRepository.new.authenticate!(username, password)
+      # username = params.get(:user, :username)
+      # password = params.get(:user, :password)
+      # user = UserRepository.new.authenticate!(username, password)
 
-      if user.nil?
-        redirect_to routes.new_session_path
-      else
-        redirect_to routes.dashboards_path
-      end
+      authenticate
+      redirect_to session[:return_to] || routes.dashboards_path
+      # if user.nil?
+        # # redirect_to routes.new_session_path
+        # render :new
+      # else
+        # flash[:info] = 'Welcome back!'
+        # redirect_to routes.dashboards_path
+      # end
     end
   end
 end

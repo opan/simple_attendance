@@ -3,7 +3,6 @@ class UserRepository < Hanami::Repository
     return nil if params[:password] != params[:password_confirmation]
 
     enc_password = BCrypt::Password.create(params[:password])
-    debugger
     create(
       username: params[:username],
       email: params[:email],
@@ -18,8 +17,8 @@ class UserRepository < Hanami::Repository
       first
 
     return nil if user.nil?
-    debugger
-    if user.encrypted_password == BCrypt::Password.new(password)
+
+    if BCrypt::Password.new(user.encrypted_password) == password
       user
     else
       nil

@@ -10,6 +10,12 @@ gem 'haml'
 gem 'hanami-bootstrap'
 gem 'jquery-hanami'
 
+# Authentication
+gem 'warden'
+
+# Encryption
+gem 'bcrypt'
+
 group :development do
   # Code reloading
   # See: http://hanamirb.org/guides/projects/code-reloading

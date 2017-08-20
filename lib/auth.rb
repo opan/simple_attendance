@@ -1,13 +1,59 @@
+# require 'rack-flash'
+
+module Auth
+  module Helpers
+    # The main accessor to the warden middleware
+    def warden(scope = nil)
+      scope ? request.env["warden.#{scope}"] : request.env['warden']
+    end
+
+    # Return session info
+    #
+    # @params [Symbol] the scope to retreive session info for
+    def session_info(scope = nil)
+      scope ? warden.session(scope) : scope
+    end
+
+    # Check the current session is authenticated to a given scope
+    def authenticated?(scope = nil)
+      scope ? warden.authenticated?(scope: scope) : warden.authenticated?
+    end
+    alias_method :logged_in?, :authenticated?
+
+    # Authenticate a user against defined strategies
+    def authenticate(*args)
+      warden.authenticate!(*args)
+    end
+    alias_method :login, :authenticate
+
+    # Terminate the current session
+    #
+    # @param [Symbol] the session scope to terminate
+    def logout(scopes = nil)
+      scopes ? warden.logout(scopes) : warden.logout(warden.config.default_scope)
+    end
+
+    def current_user(scope = nil)
+      scope ? warden.user(scope) : warden.user
+    end
+  end
+end
+
 module Auth
   def self.included(app)
+    app.include Helpers
+    app.class_eval do
+      expose :current_user, :logged_in?
+    end
+
     app.use Warden::Manager do |config|
-      config.failure_app = Web::Controllers::Sessions::New
+      config.failure_app = Web::Controllers::Sessions::Unauthenticated
       config.default_strategies :password
       config.default_scope = :user
       config.scope_defaults :user,
         strategies: [:password],
         store: false,
-        action: 'sessions/new'
+        action: 'sessions/unauthenticated'
     end
 
     Warden::Manager.serialize_into_session do |resource|
@@ -16,7 +62,7 @@ module Auth
     end
 
     Warden::Manager.serialize_from_session do |resource_id|
-      UserRepository.find(resource_id)
+      UserRepository.new.find(resource_id)
     end
 
     # Warden callbacks executed every time user is authenticated
@@ -41,11 +87,11 @@ module Auth
         username = params['user']['username']
         password = params['user']['password']
 
-        if params['user']['username'].nil?
-          throw(:warden, message: 'The username you entered does not exists')
+        if username.nil? || password.nil?
+          fail!('Username nor password cannot be empty')
         else
-          user = UserRepository.new.authenticate!(username, password)
-          user.nil? ? throw(:warden, message: 'Username and password combination is invalid') : success!(user)
+          resource = UserRepository.new.authenticate!(username, password)
+          resource.nil? ? fail!('Username and password combination is invalid') : success!(resource)
         end
       end
     end

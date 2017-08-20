@@ -3,8 +3,8 @@ module Web::Controllers::Dashboards
     include Web::Action
 
     def call(params)
-      params.env['warden'].authenticate!(:password)
       debugger
+      authenticate
     end
   end
 end
