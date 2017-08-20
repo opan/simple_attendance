@@ -52,7 +52,7 @@ module Auth
       config.default_scope = :user
       config.scope_defaults :user,
         strategies: [:password],
-        store: false,
+        store: true,
         action: 'sessions/unauthenticated'
     end
 

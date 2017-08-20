@@ -3,7 +3,6 @@ module Web::Controllers::Dashboards
     include Web::Action
 
     def call(params)
-      debugger
       authenticate
     end
   end

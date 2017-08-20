@@ -11,6 +11,7 @@ module Web::Controllers::Sessions
 
     private
 
+    # Skip CSRF protection
     def verify_csrf_token?
       false
     end
