@@ -27,19 +27,22 @@
         <div class="collapse navbar-collapse" id="main-navbar">
           <ul class="nav navbar-nav">
             <% if logged_in? %>
-              <li><%= link_to 'Logout', routes.session_path(id: current_user.id), 'data-method' => 'delete' %></li>
+              <li><%= link_to 'Logout', routes.session_path(id: current_user.id) %></li>
             <% else %>
               <li><%= link_to 'Sign Up', routes.new_registration_path %></li>
+              <li><%= link_to 'Sign In', routes.new_session_path %></li>
             <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="alert alert-info alert-dismissable text-center" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"> &times; </span></button>
-      <strong>Hallo</strong>
-    </div>
+    <%= flash_messages(flash) %>
+
+    <%# <div class="alert alert-info alert-dismissable text-center" role="alert"> %>
+      <%# <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"> &times; </span></button> %>
+      <%# <strong>Hallo</strong> %>
+    <%# </div> %>
 
     <div class="container">
       <%= yield %>

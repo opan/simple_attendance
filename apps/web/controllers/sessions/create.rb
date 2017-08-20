@@ -11,6 +11,7 @@ module Web::Controllers::Sessions
 
     def call(params)
       authenticate
+      flash[:info] = "You've successfully logged in"
       redirect_to session[:return_to] || routes.dashboards_path
     end
   end

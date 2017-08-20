@@ -67,6 +67,8 @@ module Auth
 
     # Warden callbacks executed every time user is authenticated
     Warden::Manager.after_authentication do |user, auth, opts|
+      # Update last_signed_in
+      UserRepository.new.update(user.id, last_signed_in: Time.now)
     end
 
     # Warden callbacks run right before the failure application is called
