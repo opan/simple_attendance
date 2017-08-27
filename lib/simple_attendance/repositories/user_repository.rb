@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 class UserRepository < Hanami::Repository
   def create_with_password(params)
-    return nil if params[:password] != params[:password_confirmation]
-
     enc_password = BCrypt::Password.create(params[:password])
     create(
       username: params[:username],
@@ -12,16 +12,13 @@ class UserRepository < Hanami::Repository
   end
 
   def authenticate!(username, password)
-    user = users.
-      where(username: username).
-      first
-
+    user = users.where(username: username).first
     return nil if user.nil?
+    return user if BCrypt::Password.new(user.encrypted_password) == password
+    nil
+  end
 
-    if BCrypt::Password.new(user.encrypted_password) == password
-      user
-    else
-      nil
-    end
+  def query(*conditions)
+    users.where(*conditions)
   end
 end

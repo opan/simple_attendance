@@ -12,7 +12,7 @@ module Web
               raw '&times;'
             end
           end
-          strong flash[alert[:type]]
+          strong raw(flash[alert[:type]])
         end unless alert.nil?
       end
     end

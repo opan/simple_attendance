@@ -1,6 +1,7 @@
 require 'hanami/helpers'
 require 'hanami/assets'
 require_relative '../../lib/auth'
+require_relative '../../lib/exception'
 
 module Web
   class Application < Hanami::Application
@@ -261,6 +262,14 @@ module Web
       # See: http://www.rubydoc.info/gems/hanami-controller#Configuration
       controller.prepare do
         include Auth
+
+        handle_exception Hanami::Model::Error => :handle_model_exception
+
+        def handle_model_exception(exception)
+          flash[:alert] = exception.message
+          self.status = 422
+        end
+        private_methods :handle_model_exception
       end
 
       # Configure the code that will yield each time Web::View is included
@@ -278,7 +287,7 @@ module Web
     #
     configure :development do
       # Don't handle exceptions, render the stack trace
-      handle_exceptions false
+      handle_exceptions true
     end
 
     ##

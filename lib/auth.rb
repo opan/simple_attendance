@@ -1,5 +1,3 @@
-# require 'rack-flash'
-
 module Auth
   module Helpers
     # The main accessor to the warden middleware
@@ -52,6 +50,8 @@ module Auth
       config.default_scope = :user
       config.scope_defaults :user,
         strategies: [:password],
+        # Set 'store: true' to store authenticated user into a session
+        # Usually 'store: false' only for API based authentication
         store: true,
         action: 'sessions/unauthenticated'
     end
