@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auth
   module Helpers
     # The main accessor to the warden middleware

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Web::Controllers::Sessions
   class New
     include Web::Action
