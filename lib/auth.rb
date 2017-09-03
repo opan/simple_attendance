@@ -16,7 +16,9 @@ module Auth
 
     # Check the current session is authenticated to a given scope
     def authenticated?(scope = nil)
-      scope ? warden.authenticated?(scope: scope) : warden.authenticated?
+      headers.merge!({
+        'X-Auth-Valid' => (scope ? warden.authenticated?(scope: scope) : warden.authenticated?).to_s
+      })
     end
     alias_method :logged_in?, :authenticated?
 
@@ -69,6 +71,8 @@ module Auth
 
     # Warden callbacks executed every time user is authenticated
     Warden::Manager.after_authentication do |user, auth, opts|
+      auth.env['AUTH_VALID'] = true
+
       # Update last_signed_in
       UserRepository.new.update(user.id, last_signed_in: Time.now)
     end
@@ -76,6 +80,7 @@ module Auth
     # Warden callbacks run right before the failure application is called
     Warden::Manager.before_failure do |env, opts|
       env['REQUEST_METHOD'] = 'POST'
+      env['AUTH_VALID'] = false
     end
 
     # Warden callbacks run before each user is logged out

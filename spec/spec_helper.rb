@@ -10,11 +10,13 @@ Hanami::Utils.require!("#{__dir__}/support")
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.include Rack::Test::Methods, type: :action
+  config.include Rack::Test::Methods, type: :request
+  config.include Warden::Test::Helpers, type: :request
   config.include Warden::Test::Helpers, type: :action
+  config.include RequestHelpers, type: :request
   config.include ActionHelpers, type: :action
 
-  config.after do
+  config.after(type: [:request, :action]) do
     Warden.test_reset!
   end
 
