@@ -6,12 +6,9 @@ RSpec.describe Web::Controllers::Dashboards::Index, type: :action do
   let(:action) { described_class.new }
   let(:params) { {} }
 
-  context 'without sign in' do
-    it 'is failed' do
-      expect do
-        sign_in(action: action, user: nil)
-        action.call(params)
-      end.to throw_symbol(:warden)
-    end
+  it 'is success' do
+    sign_in(action: action)
+    response = action.call(params)
+    expect(response[0]).to eq 200
   end
 end

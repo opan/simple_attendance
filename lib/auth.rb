@@ -16,9 +16,11 @@ module Auth
 
     # Check the current session is authenticated to a given scope
     def authenticated?(scope = nil)
+      result = scope ? warden.authenticated?(scope: scope) : warden.authenticated?
       headers.merge!({
-        'X-Auth-Valid' => (scope ? warden.authenticated?(scope: scope) : warden.authenticated?).to_s
+        'X-Auth-Valid' => result.to_s
       })
+      result
     end
     alias_method :logged_in?, :authenticated?
 

@@ -13,6 +13,7 @@ RSpec.configure do |config|
   config.include Rack::Test::Methods, type: :request
   config.include Warden::Test::Helpers, type: :request
   config.include Warden::Test::Helpers, type: :action
+  config.include Warden::Test::Mock, type: :action
   config.include RequestHelpers, type: :request
   config.include ActionHelpers, type: :action
 
