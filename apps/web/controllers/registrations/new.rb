@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Web::Controllers::Registrations
   class New
     include Web::Action

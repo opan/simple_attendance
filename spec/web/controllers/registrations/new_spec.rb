@@ -1,11 +1,24 @@
+# frozen_string_literal: true
+
 require_relative '../../../../apps/web/controllers/registrations/new'
 
-RSpec.describe Web::Controllers::Registrations::New do
+RSpec.describe Web::Controllers::Registrations::New, type: :action do
   let(:action) { described_class.new }
   let(:params) { Hash[] }
 
-  it 'is successful' do
-    response = action.call(params)
-    expect(response[0]).to eq 200
+  context 'when signed in' do
+    it 'redirect to dashboards' do
+      sign_in(action: action)
+      response = action.call(params)
+      expect(response[1]['Location']).to eq '/dashboards'
+    end
+  end
+
+  context 'when not signed in' do
+    it 'get expected response' do
+      sign_in(action: action, user: nil)
+      response = action.call(params)
+      expect(response[0]).to eq 200
+    end
   end
 end

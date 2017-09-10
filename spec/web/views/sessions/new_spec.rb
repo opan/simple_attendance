@@ -1,4 +1,5 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
 require_relative '../../../../apps/web/views/sessions/new'
 
 describe Web::Views::Sessions::New do

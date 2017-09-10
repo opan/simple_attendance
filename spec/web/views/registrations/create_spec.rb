@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../../../apps/web/views/registrations/create'
 
 RSpec.describe Web::Views::Registrations::Create do
@@ -7,7 +9,7 @@ RSpec.describe Web::Views::Registrations::Create do
   let(:rendered)  { view.render }
 
   it 'exposes #foo' do
-    pending 'This is an auto-generated test. Edit it and add your own tests.'
+    skip 'This is an auto-generated test. Edit it and add your own tests.'
 
     # Example
     expect(view.foo).to eq exposures.fetch(:foo)
